@@ -30,9 +30,15 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: rgba(255, 254, 248, 1);
 }
 ol, ul {
 	list-style: none;
+}
+a {
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
 }
 blockquote, q {
 	quotes: none;
@@ -125,6 +131,30 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+/* Filtres et projets */
+.btns-container {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-bottom: 2.5rem;
+	padding-top: 0.5rem;
+}
+.btns-container .btns {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 1rem;
+	text-align: center;
+	border-radius: 60px;
+	padding: 0.5rem;
+	padding-inline: 1.2rem;
+	background-color: white;
+	color: #1D6154;
+	border-color: #1D6154;
+	border: 1px solid;
+	cursor: pointer;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -135,8 +165,10 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
+	margin-bottom: 0.5rem;
 }
+
+/* Contact */
 #contact {
 	width: 50%;
 margin: auto;
@@ -186,3 +218,49 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Log in page */
+.login-title {
+	text-align: center;
+	margin-top: 10rem;
+	margin-bottom: 3rem;
+}
+
+.login-form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+}
+.login-form input {
+	width: 379px;
+	height: 35px;
+	border: none;
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	background-color: white;
+	margin-bottom: 2rem;
+	margin-top: 0.5rem;
+}
+.btn-submit {
+	font-family: 'Syne';
+	font-size: 1rem;
+	width: 179px;
+	text-align: center;
+	border-radius: 60px;
+	padding: 0.5rem;
+	padding-inline: 1.2rem;
+	margin-bottom: 2rem;
+	background-color: #1D6154;
+	color: rgba(255, 254, 248);
+	border: none;
+	cursor: pointer;
+}
+.forgotten-pw {
+	text-decoration: underline;
+	font-weight: 500;
+	cursor: pointer;
+}

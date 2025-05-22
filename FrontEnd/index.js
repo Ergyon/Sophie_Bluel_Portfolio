@@ -5,8 +5,8 @@ async function getWorks() {
         const reponse = await fetch("http://localhost:5678/api/works")
         const works = await reponse.json()
 
-        const getCat = await fetch("http://localhost:5678/api/categories")
-        const categories = await getCat.json()
+        const getCategories = await fetch("http://localhost:5678/api/categories")
+        const categories = await getCategories.json()
 
         getFilters(categories, works)
 
@@ -37,10 +37,11 @@ function getFilters(categories, allWorks) {
     const btnsContainer = document.querySelector(".btns-container")
     btnsContainer.innerHTML = ""
 
-    const allBtns = document.createElement("button")
-    allBtns.innerText = "Tous"
-    allBtns.addEventListener("click", () => displayWorks(allWorks))
-    btnsContainer.appendChild(allBtns)
+    const allBtn = document.createElement("button")
+    allBtn.innerText = "Tous"
+    allBtn.addEventListener("click", () => displayWorks(allWorks))
+    allBtn.classList.add('btns')
+    btnsContainer.appendChild(allBtn)
 
     for (let category of categories) {
         const button = document.createElement("button")
@@ -50,7 +51,7 @@ function getFilters(categories, allWorks) {
             const filteredResults = allWorks.filter(work => work.categoryId === category.id)
             displayWorks(filteredResults) 
         })
-
+        button.classList.add('btns')
         btnsContainer.appendChild(button)
     }
 }
