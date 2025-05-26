@@ -64,6 +64,10 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
+.insta-logo {
+	height: 1.5rem;
+	cursor: pointer;
+}
 section {
 	margin: 50px 0
 }
@@ -211,11 +215,14 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
-
-footer nav ul {
+footer {
+	background: white;
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	align-items: center;
+}
+footer nav ul {
+	margin: 2em;
 }
 
 /* Log in page */
@@ -234,7 +241,11 @@ footer nav ul {
 .login-form {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	margin-bottom: 1rem;
+}
+.login-form label {
+	align-self: flex-start;
 }
 .login-form input {
 	width: 379px;
@@ -263,4 +274,5 @@ footer nav ul {
 	text-decoration: underline;
 	font-weight: 500;
 	cursor: pointer;
+	margin-bottom: 5.5rem;
 }
