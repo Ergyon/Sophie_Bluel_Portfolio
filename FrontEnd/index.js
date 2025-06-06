@@ -33,6 +33,7 @@ async function getWorks() {
     }
 }
 
+// Filtrer les travaux
 function getFilters(categories, allWorks) {
     const btnsContainer = document.querySelector(".btns-container")
     btnsContainer.innerHTML = ""
@@ -41,7 +42,7 @@ function getFilters(categories, allWorks) {
     allBtn.innerText = "Tous"
     allBtn.addEventListener("click", () => displayWorks(allWorks))
     allBtn.classList.add('btns')
-    btnsContainer.appendChild(allBtn)
+    btnsContainer.appendChild(allBtn) 
 
     for (let category of categories) {
         const button = document.createElement("button")
@@ -75,3 +76,29 @@ function displayWorks(works) {
 
 getWorks()
 
+// Modale modifier projets
+const editWindow = document.querySelector(".modal-gallery")
+const editBtn = document.getElementById("edit-btn")
+const closeBtn = document.querySelector(".close-btn")
+const body = document.body
+
+// Ouvrir
+editBtn.addEventListener("click", () => {
+    editWindow.classList.remove("modal-hidden")
+    editWindow.classList.add("modal-active")
+    body.classList.add("modal-overlay")
+})
+// Fermer
+closeBtn.addEventListener("click", () => {
+    editWindow.classList.add("modal-hidden")
+    editWindow.classList.remove("modal-active")
+    body.classList.remove("modal-overlay")
+})
+
+editWindow.addEventListener("click", (e) => { 
+    if (e.target !== editWindow) {
+        editWindow.classList.add("modal-hidden")
+        editWindow.classList.remove("modal-active")
+        body.classList.remove("modal-overlay")
+    }
+})

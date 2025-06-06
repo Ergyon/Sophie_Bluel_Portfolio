@@ -138,6 +138,19 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+.projects-header {
+	display: flex;
+	justify-content: center;
+	gap: 1.3rem; 
+	padding-top: 3rem;
+	padding-bottom: 1.5rem;
+}
+.projects-header .edit-project {
+	padding-top: 0.6rem;
+	padding-left: 1rem;
+	font-size: 0.8rem;
+	cursor: pointer;
+}
 
 /* Filtres et projets */
 .btns-container {
@@ -147,7 +160,7 @@ li:hover {
 	margin-bottom: 2.5rem;
 	padding-top: 0.5rem;
 }
-.btns-container .btns {
+.btns {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 1rem;
@@ -171,6 +184,70 @@ li:hover {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
 }
 
+/* Modale modifier projets */
+.modal-active {
+	display: block;
+}
+.modal-hidden {
+	display: none;
+}
+.modal-overlay {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+.modal-gallery {
+	position: fixed;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border-radius: 10px;
+	width: 630px;
+	height: 688px;
+	z-index: 1000;
+	position: relative;
+}
+.modal-gallery .close-btn {
+	position: absolute;
+	right: 2rem;
+	padding-top: 2rem;
+	width: 12px;
+}
+.modal-gallery .modal-title {
+	text-align: center;
+	position: fixed;
+	top: 12%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1.6rem;
+}
+.line-separator {
+	width: 420px;
+	height: 1px;
+	background-color: rgba(179, 179, 179, 1);
+	position: fixed;
+	bottom: 20%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.btn-modal {
+	color: rgba(255, 254, 248);
+	background-color: #1D6154;
+	font-family: 'Syne';
+	font-size: 0.8rem;
+	text-align: center;
+	border-radius: 60px;
+	border: none;
+	padding-inline: 3rem;
+	padding-block: 0.6rem;
+	cursor: pointer;
+	position: fixed;
+	bottom: 5%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.close-btn {
+	cursor: pointer;
+}
 .gallery {
 	width: 100%;
 	display: grid;
