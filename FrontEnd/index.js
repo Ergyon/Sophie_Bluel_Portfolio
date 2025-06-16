@@ -1,35 +1,21 @@
 
 // Recuperation des travaux et categories
+let allWorks = []
+
 async function getWorks() {
     try {
         const reponse = await fetch("http://localhost:5678/api/works")
-        const works = await reponse.json()
+        allWorks = await reponse.json()
 
         const getCategories = await fetch("http://localhost:5678/api/categories")
         const categories = await getCategories.json()
 
-        getFilters(categories, works)
+        getFilters(categories, allWorks)
 
-        const gallery = document.querySelector(".gallery")
-        gallery.innerHTML = ""
+        displayWorks(allWorks)
 
-        for (let i = 0; i < works.length; i++) {
-            const work = works[i]
-            const workArticle = document.createElement("figure")
-
-            const workImg = document.createElement("img")
-            workImg.src= work.imageUrl
-            workImg.alt = work.title
-
-            const workTitle = document.createElement("figcaption")
-            workTitle.innerText = work.title
-
-            workArticle.appendChild(workImg)
-            workArticle.appendChild(workTitle)
-            gallery.appendChild(workArticle)
-        } 
     } catch (error) {
-            console.error("Impossible de collectionner les donnees");
+            console.error("Impossible de collectionner les donnees", error);
     }
 }
 
@@ -50,13 +36,14 @@ function getFilters(categories, allWorks) {
 
         button.addEventListener("click", () => {
             const filteredResults = allWorks.filter(work => work.categoryId === category.id)
-            displayWorks(filteredResults) 
+            displayWorks(filteredResults, ".gallery") 
         })
         button.classList.add('btns')
         btnsContainer.appendChild(button)
     }
 }
 
+// Afficher les works
 function displayWorks(works) {
     const gallery = document.querySelector(".gallery")
     gallery.innerHTML = ""
@@ -82,23 +69,50 @@ const editBtn = document.getElementById("edit-btn")
 const closeBtn = document.querySelector(".close-btn")
 const body = document.body
 
+// Afficher projets dans la modale
+function displayWorksModal(works) {
+    const container = document.querySelector(".projects-container")
+    container.innerHTML = ""
+
+    for (let work of works) {
+        const card = document.createElement("figure")
+        card.classList.add("modal-card")
+        const cardImg = document.createElement("img")
+        cardImg.classList.add("modal-img")
+        cardImg.src = work.imageUrl
+
+        const delBtn = document.createElement("img")
+        delBtn.src = "./assets/icons/trash.png"
+        delBtn.alt = "Supprimer"
+        delBtn.classList.add("delBtn")
+
+        card.appendChild(cardImg)
+        card.appendChild(delBtn)
+        container.appendChild(card)
+    }
+}
+
 // Ouvrir
+const overlay = document.querySelector(".overlay")
+
 editBtn.addEventListener("click", () => {
     editWindow.classList.remove("modal-hidden")
     editWindow.classList.add("modal-active")
-    body.classList.add("modal-overlay")
+    overlay.classList.add("modal-overlay")
+    
+    displayWorksModal(allWorks)
+
 })
+
 // Fermer
 closeBtn.addEventListener("click", () => {
     editWindow.classList.add("modal-hidden")
     editWindow.classList.remove("modal-active")
-    body.classList.remove("modal-overlay")
+    overlay.classList.remove("modal-overlay")
 })
 
-editWindow.addEventListener("click", (e) => { 
-    if (e.target !== editWindow) {
-        editWindow.classList.add("modal-hidden")
-        editWindow.classList.remove("modal-active")
-        body.classList.remove("modal-overlay")
-    }
+overlay.addEventListener("click", () => {
+    editWindow.classList.add("modal-hidden")
+    editWindow.classList.remove("modal-active")
+    overlay.classList.remove("modal-overlay")
 })
