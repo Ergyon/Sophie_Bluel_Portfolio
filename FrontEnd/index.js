@@ -43,7 +43,7 @@ function getFilters(categories, allWorks) {
     }
 }
 
-// Afficher les works
+// Afficher les projets
 function displayWorks(works) {
     const gallery = document.querySelector(".gallery")
     gallery.innerHTML = ""
@@ -63,13 +63,7 @@ function displayWorks(works) {
 
 getWorks()
 
-// Modale modifier projets
-const editWindow = document.querySelector(".modal-gallery")
-const editBtn = document.getElementById("edit-btn")
-const closeBtn = document.querySelector(".close-btn")
-const body = document.body
-
-// Afficher projets dans la modale
+// Afficher projets dans la modale, avec btn de suppression
 function displayWorksModal(works) {
     const container = document.querySelector(".projects-container")
     container.innerHTML = ""
@@ -77,6 +71,8 @@ function displayWorksModal(works) {
     for (let work of works) {
         const card = document.createElement("figure")
         card.classList.add("modal-card")
+        card.dataset.id = work.id
+
         const cardImg = document.createElement("img")
         cardImg.classList.add("modal-img")
         cardImg.src = work.imageUrl
@@ -86,33 +82,63 @@ function displayWorksModal(works) {
         delBtn.alt = "Supprimer"
         delBtn.classList.add("delBtn")
 
+        // Suuprimer un projet 
+        delBtn.addEventListener("click", (e) => {
+            const workSelected = e.target.closest(".modal-card")
+            const workId = workSelected.dataset.id
+            deleteWork(workId)
+            // console.log("Projet", workId)
+        })
+
         card.appendChild(cardImg)
         card.appendChild(delBtn)
         container.appendChild(card)
     }
 }
 
+// Modale modifier projets
+const overlay = document.querySelector(".modal-overlay");
+const editWindow = document.querySelector(".modal-gallery");
+const editBtn = document.getElementById("edit-btn");
+const closeBtn = document.querySelector(".close-btn");
+
 // Ouvrir
-const overlay = document.querySelector(".overlay")
-
 editBtn.addEventListener("click", () => {
-    editWindow.classList.remove("modal-hidden")
-    editWindow.classList.add("modal-active")
-    overlay.classList.add("modal-overlay")
-    
-    displayWorksModal(allWorks)
-
-})
+	editWindow.classList.remove("modal-hidden");
+    overlay.classList.remove("modal-hidden")
+	displayWorksModal(allWorks);
+});
 
 // Fermer
-closeBtn.addEventListener("click", () => {
-    editWindow.classList.add("modal-hidden")
-    editWindow.classList.remove("modal-active")
-    overlay.classList.remove("modal-overlay")
-})
+function closeModal() {
+	editWindow.classList.add("modal-hidden");
+    overlay.classList.add("modal-hidden")
+}
+overlay.addEventListener("click", closeModal);
 
-overlay.addEventListener("click", () => {
-    editWindow.classList.add("modal-hidden")
-    editWindow.classList.remove("modal-active")
-    overlay.classList.remove("modal-overlay")
-})
+closeBtn.addEventListener("click", closeModal);
+
+// Supprimer
+async function deleteWork(workId) {
+    const token = localStorage.getItem("token")
+    const url = `http://localhost:5678/api/works/${workId}`
+
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
+        
+        if (response.ok) {
+            document.querySelector(`[data-id="${workId}"]`).remove()
+        } else {
+            alert("Vous n'avez pas les droits")
+        }
+        
+    } catch (error) {
+        console.error("Erreur :", error)
+        alert("Impossible de se connecter au serveur")
+    }
+}
