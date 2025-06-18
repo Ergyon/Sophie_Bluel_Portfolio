@@ -2,6 +2,7 @@ async function sendUserId () {
     const loginForm = document.querySelector(".login-form")
     const mailInput = document.querySelector("[name=user_mail]")
     const passwordInput = document.querySelector("[name=user_password]")
+    const loginTxt = document.getElementById("login-txt")
 
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault()
@@ -26,10 +27,11 @@ async function sendUserId () {
             }
 
             const response = await sendLoginData.json()
-
+            
             localStorage.setItem("token", response.token)
             localStorage.setItem("userId", response.userId)
-
+            
+            loginTxt.innerHTML = "Log out"
             window.location.href = "index.html"
         } catch (error) {
             console.error("Erreur lors de la requête :", error)
@@ -41,6 +43,7 @@ async function sendUserId () {
     passwordInput.addEventListener("input", () => {
         passwordInput.classList.remove("input-error")
     })
+    
 }
 
 sendUserId()

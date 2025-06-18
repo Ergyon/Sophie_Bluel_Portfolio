@@ -82,12 +82,11 @@ function displayWorksModal(works) {
         delBtn.alt = "Supprimer"
         delBtn.classList.add("delBtn")
 
-        // Suuprimer un projet 
+        // Bouton de supression
         delBtn.addEventListener("click", (e) => {
             const workSelected = e.target.closest(".modal-card")
             const workId = workSelected.dataset.id
             deleteWork(workId)
-            // console.log("Projet", workId)
         })
 
         card.appendChild(cardImg)
@@ -113,12 +112,17 @@ editBtn.addEventListener("click", () => {
 function closeModal() {
 	editWindow.classList.add("modal-hidden");
     overlay.classList.add("modal-hidden")
+    container.style.display = "flex"
+    modalTitle.innerHTML = "Galerie Photo"
+    addBtn.innerHTML = "Ajouter une photo"
+    addBtn.classList.remove("validation-btn")
+    addWorkModal.classList.remove("add-work-container")
 }
 overlay.addEventListener("click", closeModal);
 
 closeBtn.addEventListener("click", closeModal);
 
-// Supprimer
+// Supprimer un projet
 async function deleteWork(workId) {
     const token = localStorage.getItem("token")
     const url = `http://localhost:5678/api/works/${workId}`
@@ -136,9 +140,40 @@ async function deleteWork(workId) {
         } else {
             alert("Vous n'avez pas les droits")
         }
-        
+
     } catch (error) {
         console.error("Erreur :", error)
         alert("Impossible de se connecter au serveur")
+    }
+}
+
+// Ajouter un projet
+const addBtn = document.getElementById("addWork")
+const container = document.querySelector(".projects-container")
+const modalTitle = document.querySelector(".modal-title")
+const addWorkModal = document.getElementById("addWorkModal")
+const backBtn = document.querySelector(".back-btn")
+
+addBtn.addEventListener("click", () => {
+    container.style.display = "none"
+    changeStyle()  
+})
+
+backBtn.addEventListener("click", () => {
+    container.style.display = "flex"
+    changeStyle()
+})
+
+function changeStyle() {
+    if (container.style.display === "none") {
+        addWorkModal.classList.add("add-work-container")
+        modalTitle.innerHTML = "Ajout Photo"
+        addBtn.innerHTML = "Valider"
+        addBtn.classList.add("validation-btn") 
+    } else {
+        addWorkModal.classList.remove("add-work-container")
+        modalTitle.innerHTML = "Galerie Photo"
+        addBtn.innerHTML = "Ajouter une photo"
+        addBtn.classList.remove("validation-btn")
     }
 }

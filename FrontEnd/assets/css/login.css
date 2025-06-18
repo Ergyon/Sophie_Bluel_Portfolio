@@ -1,0 +1,61 @@
+@import url("style.css");
+
+.login-title {
+	text-align: center;
+	margin-top: 10rem;
+	margin-bottom: 3rem;
+}
+
+.login-form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+.login-form label {
+	align-self: flex-start;
+}
+.login-form input {
+	width: 379px;
+	height: 35px;
+	border: none;
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	background-color: white;
+	margin-bottom: 2rem;
+	margin-top: 0.5rem;
+}
+.login-form input:focus {
+	background-color: #12dc6922;
+	border-radius: 5px;
+}
+.login-form .input-error {
+	border: 2px solid rgb(246, 93, 66);
+	background-color: rgba(218, 33, 33, 0.122);
+	animation: errorInput 0.3s ease-out forwards;
+}
+.btn-submit {
+	font-family: 'Syne';
+	font-size: 1rem;
+	width: 179px;
+	text-align: center;
+	border-radius: 60px;
+	padding: 0.5rem;
+	padding-inline: 1.2rem;
+	margin-bottom: 2rem;
+	background-color: #1D6154;
+	color: rgba(255, 254, 248);
+	border: none;
+	cursor: pointer;
+}
+.forgotten-pw {
+	text-decoration: underline;
+	font-weight: 500;
+	cursor: pointer;
+	margin-bottom: 5.5rem;
+}
