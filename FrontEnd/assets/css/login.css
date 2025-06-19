@@ -31,8 +31,7 @@
 	margin-top: 0.5rem;
 }
 .login-form input:focus {
-	background-color: #12dc6922;
-	border-radius: 5px;
+	outline: none;
 }
 .login-form .input-error {
 	border: 2px solid rgb(246, 93, 66);
@@ -52,6 +51,9 @@
 	color: rgba(255, 254, 248);
 	border: none;
 	cursor: pointer;
+}
+.btn-submit:hover {
+	background-color: #1d6154dc;
 }
 .forgotten-pw {
 	text-decoration: underline;

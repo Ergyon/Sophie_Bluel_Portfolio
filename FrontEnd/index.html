@@ -54,14 +54,16 @@
 					<img src="assets/icons/arrow-left.png" alt="Précédent" class="back-btn">
 					<div class="photo-wrapper">
 						<img src="assets/icons/new_photo.png" alt="Nouvelle image" class="photo-icon">
+						<img class="img-preview modal-hidden">
+						<input type="file" id="imgUpload" accept="image/png, image/jpeg" class="img-input">
 						<button class="add-photo-btn">+ Ajouter photo</button>
 						<span class="photo-infos">jpg, png : 4mo max</span>
 					</div>
 					<form class="add-work-form">
 						<label for="title">Titre</label>
-						<input type="text" id="title" name="title" class="add-work-input" required/>
+						<input type="text" id="newWorkTitle" name="title" class="add-work-input" required/>
 						<label for="category">Catégorie</label>
-						<select name="category" id="category" class="add-work-input" required></select>
+						<select name="category" id="newWorkCategory" class="add-work-input" required></select>
 					</form>
 				</div>
 				<div class="projects-container"></div>

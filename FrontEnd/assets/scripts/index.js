@@ -117,6 +117,7 @@ function closeModal() {
     addBtn.innerHTML = "Ajouter une photo"
     addBtn.classList.remove("validation-btn")
     addWorkModal.classList.remove("add-work-container")
+    resetAddForm()
 }
 overlay.addEventListener("click", closeModal);
 
@@ -147,7 +148,7 @@ async function deleteWork(workId) {
     }
 }
 
-// Ajouter un projet
+// Changer le contenu de la modale
 const addBtn = document.getElementById("addWork")
 const container = document.querySelector(".projects-container")
 const modalTitle = document.querySelector(".modal-title")
@@ -162,6 +163,7 @@ addBtn.addEventListener("click", () => {
 backBtn.addEventListener("click", () => {
     container.style.display = "flex"
     changeStyle()
+    resetAddForm()
 })
 
 function changeStyle() {
@@ -176,4 +178,47 @@ function changeStyle() {
         addBtn.innerHTML = "Ajouter une photo"
         addBtn.classList.remove("validation-btn")
     }
+}
+
+// Recuperer donnees du formulaire (Nouveau projet)
+const addPhotoBtn = document.querySelector(".add-photo-btn")
+const imgInput = document.getElementById("imgUpload")
+const imgIcon = document.querySelector(".photo-icon")
+const fileInfos = document.querySelector(".photo-infos")
+const imgPreview = document.querySelector(".img-preview")
+
+addPhotoBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+    imgInput.click()
+})
+
+imgInput.addEventListener("change", () => {
+    const imgFile = imgInput.files[0]
+    if (imgFile) {
+        const reader = new FileReader()
+
+        reader.onload = function (e) {
+            imgPreview.src = e.target.result
+            imgPreview.classList.remove("modal-hidden")
+            imgIcon.classList.add("modal-hidden")
+            addPhotoBtn.classList.add("modal-hidden")
+            fileInfos.style.display = "none"
+        }
+        reader.readAsDataURL(imgFile)
+    }
+})
+
+// Reset le formulaire si non validé
+function resetAddForm() {
+    imgInput.value = ""
+    imgPreview.src = ""
+    imgPreview.classList.add("modal-hidden")
+    imgIcon.classList.remove("modal-hidden")
+    addPhotoBtn.classList.remove("modal-hidden")
+    fileInfos.style.display = "block"
+
+    const title = document.getElementById("newWorkTitle")
+    const category = document.getElementById("newWorkCategory")
+    title.value = ""
+    category.selectedIndex = 0
 }
