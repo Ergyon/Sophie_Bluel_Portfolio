@@ -1,4 +1,3 @@
-
 // Recuperation des travaux et categories
 let allWorks = []
 
@@ -114,8 +113,8 @@ function closeModal() {
     overlay.classList.add("modal-hidden")
     container.style.display = "flex"
     modalTitle.innerHTML = "Galerie Photo"
-    addBtn.innerHTML = "Ajouter une photo"
-    addBtn.classList.remove("validation-btn")
+    sendWorkBtn.classList.add("modal-hidden")
+    addBtn.classList.remove("modal-hidden")
     addWorkModal.classList.remove("add-work-container")
     resetAddForm()
 }
@@ -158,6 +157,7 @@ const backBtn = document.querySelector(".back-btn")
 addBtn.addEventListener("click", () => {
     container.style.display = "none"
     changeStyle()  
+    getCategoriesAddForm()
 })
 
 backBtn.addEventListener("click", () => {
@@ -170,13 +170,33 @@ function changeStyle() {
     if (container.style.display === "none") {
         addWorkModal.classList.add("add-work-container")
         modalTitle.innerHTML = "Ajout Photo"
-        addBtn.innerHTML = "Valider"
-        addBtn.classList.add("validation-btn") 
+        addBtn.classList.add("modal-hidden")
+        sendWorkBtn.classList.remove("modal-hidden")
     } else {
         addWorkModal.classList.remove("add-work-container")
         modalTitle.innerHTML = "Galerie Photo"
-        addBtn.innerHTML = "Ajouter une photo"
-        addBtn.classList.remove("validation-btn")
+        sendWorkBtn.classList.add("modal-hidden")
+        addBtn.classList.remove("modal-hidden")
+    }
+}
+
+// Recuperer categories disponibles pour le nouveau projet
+async function getCategoriesAddForm() {
+    const optionsContainer = document.getElementById("newWorkCategory")
+    optionsContainer.innerHTML = ""
+    
+    try {
+        const response = await fetch("http://localhost:5678/api/categories")
+        const categories = await response.json()
+
+        categories.forEach(category => {
+            const option = document.createElement("option")
+            option.value = category.id
+            option.textContent = category.name
+            optionsContainer.appendChild(option)
+        })
+    } catch (error) {
+        console.error("Impossible de collecter les données :" , error)
     }
 }
 
@@ -186,10 +206,13 @@ const imgInput = document.getElementById("imgUpload")
 const imgIcon = document.querySelector(".photo-icon")
 const fileInfos = document.querySelector(".photo-infos")
 const imgPreview = document.querySelector(".img-preview")
+const sendWorkBtn = document.getElementById("sendWorkBtn")
 
 addPhotoBtn.addEventListener("click", (e) => {
     e.preventDefault()
     imgInput.click()
+    uploadReady()
+    getCategoriesAddForm()
 })
 
 imgInput.addEventListener("change", () => {
@@ -206,6 +229,72 @@ imgInput.addEventListener("change", () => {
         }
         reader.readAsDataURL(imgFile)
     }
+})
+
+// Check si le formulaire est pret a etre upload
+const titleInput = document.getElementById("newWorkTitle")
+const optionSelected = document.getElementById("newWorkCategory")
+
+imgInput.addEventListener("change", uploadReady)
+titleInput.addEventListener("input", uploadReady)
+optionSelected.addEventListener("change", uploadReady)
+
+function uploadReady() {
+    const image = imgInput.files[0]
+    const title = titleInput.value
+    const category = optionSelected.value
+
+    if (image && title && category) {
+        sendWorkBtn.classList.add("validation-btn-ready")
+    } else {
+        sendWorkBtn.classList.remove("validation-btn-ready")
+    }
+}
+
+// Envoyer les donnees du nouveau projet
+async function submitNewWork() {
+    const image = imgInput.files[0]
+    const title = titleInput.value
+    const category = optionSelected.value
+
+    if (!image || !title || !category) {
+        alert("Merci de remplir tous les champs")
+        return
+    }
+
+    const formData = new FormData()
+    formData.append("image", image)
+    formData.append("title", title)
+    formData.append("category", category)
+
+    const token = localStorage.getItem("token")
+
+    try {
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token
+            },
+            body: formData
+        })
+
+        if(response.ok) {
+            const newWork = await response.json()
+            
+            allWorks.push(newWork)
+            displayWorksModal(allWorks)
+            displayWorks(allWorks)
+            closeModal()
+        }
+
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+sendWorkBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+    submitNewWork()
 })
 
 // Reset le formulaire si non validé

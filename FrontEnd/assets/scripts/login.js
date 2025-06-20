@@ -37,6 +37,7 @@ async function sendUserId () {
             console.error("Erreur lors de la requête :", error)
         }
     })
+    
     mailInput.addEventListener("input", () => {
         mailInput.classList.remove("input-error")
     })

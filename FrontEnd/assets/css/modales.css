@@ -25,6 +25,7 @@
 .btn-modal {
 	color: rgba(255, 254, 248);
 	background-color: #1D6154;
+	width: 230px;
 	font-family: 'Syne';
 	font-size: 0.8rem;
 	text-align: center;
@@ -44,6 +45,9 @@
 }
 .validation-btn:hover {
 	background-color: #1d6154d2;
+}
+.validation-btn-ready {
+	background-color: #1D6154;
 }
 .close-btn {
 	cursor: pointer;
