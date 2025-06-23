@@ -311,3 +311,18 @@ function resetAddForm() {
     title.value = ""
     category.selectedIndex = 0
 }
+
+// Log in --> Log out si connecté
+const loginTxt = document.getElementById("login-txt")
+const token = localStorage.getItem("token")
+
+if (token) {
+    loginTxt.innerHTML = "Log out"
+
+    // Deconnexion
+    loginTxt.addEventListener("click", () => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("userId")
+        window.location.href = "index.html"
+    })
+}
