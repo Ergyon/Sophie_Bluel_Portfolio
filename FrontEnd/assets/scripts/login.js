@@ -31,7 +31,7 @@ async function sendUserId () {
             localStorage.setItem("token", response.token)
             localStorage.setItem("userId", response.userId)
             
-            loginTxt.innerHTML = "Log out"
+            loginTxt.innerHTML = "logout"
             window.location.href = "index.html"
         } catch (error) {
             console.error("Erreur lors de la requête :", error)

@@ -99,6 +99,7 @@ const overlay = document.querySelector(".modal-overlay");
 const editWindow = document.querySelector(".modal-gallery");
 const editBtn = document.getElementById("edit-btn");
 const closeBtn = document.querySelector(".close-btn");
+const errorMessage = document.getElementById("errorMessage")
 
 // Ouvrir
 editBtn.addEventListener("click", () => {
@@ -116,6 +117,7 @@ function closeModal() {
     sendWorkBtn.classList.add("modal-hidden")
     addBtn.classList.remove("modal-hidden")
     addWorkModal.classList.remove("add-work-container")
+    errorMessage.innerHTML = ""
     resetAddForm()
 }
 overlay.addEventListener("click", closeModal);
@@ -137,8 +139,10 @@ async function deleteWork(workId) {
         
         if (response.ok) {
             document.querySelector(`[data-id="${workId}"]`).remove()
+            getWorks()
+            displayWorks(allWorks)
         } else {
-            alert("Vous n'avez pas les droits")
+            errorMessage.innerHTML = "Vous n'avez pas les droits"
         }
 
     } catch (error) {
@@ -285,6 +289,8 @@ async function submitNewWork() {
             displayWorksModal(allWorks)
             displayWorks(allWorks)
             closeModal()
+        } else {
+            errorMessage.innerHTML = "Vous n'avez pas les droits"
         }
 
     } catch(error) {
@@ -317,7 +323,7 @@ const loginTxt = document.getElementById("login-txt")
 const token = localStorage.getItem("token")
 
 if (token) {
-    loginTxt.innerHTML = "Log out"
+    loginTxt.innerHTML = "logout"
 
     // Deconnexion
     loginTxt.addEventListener("click", () => {

@@ -184,3 +184,11 @@
 	background-color: rgba(135, 183, 211, 0.123);
 	outline: 1px solid rgba(135, 183, 211, 0.226);
 }
+#errorMessage {
+	font-size: 0.8rem;
+	color: rgb(230, 103, 89);
+	position: fixed;
+	bottom: 16%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

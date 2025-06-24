@@ -12,17 +12,16 @@
 	<link rel="stylesheet" href="./assets/css/modales.css">
 	<script src="assets/scripts/index.js" defer></script>
 </head>
-<body id="overlay-container">
+<body>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
-			<ul> <a href="#portfolio"><li>projets</li></a>
-				<a href="#contact"><li>contact</li></a>
-				<a href="login.html" id="login-txt"><li>login</li></a> 
-				<a href="https://instagram.com" target="_blank">
-					<li><img src="./assets/icons/instagram.png" class="insta-logo" alt="Instagram"></li>
-				</a>
-			</ul>
+			<a href="#portfolio">projets</a>
+			<a href="#contact">contact</a>
+			<a href="login.html" id="login-txt">login</a> 
+			<a href="https://instagram.com" target="_blank">
+				<img src="./assets/icons/instagram.png" class="insta-logo" alt="Instagram">
+			</a>
 		</nav>
 	</header>
 	
@@ -54,20 +53,21 @@
 					<img src="assets/icons/arrow-left.png" alt="Précédent" class="back-btn">
 					<div class="photo-wrapper">
 						<img src="assets/icons/new_photo.png" alt="Nouvelle image" class="photo-icon">
-						<img class="img-preview modal-hidden">
+						<img src="" alt="work image preview" class="img-preview modal-hidden">
 						<input type="file" id="imgUpload" accept="image/png, image/jpeg" class="img-input">
 						<button class="add-photo-btn">+ Ajouter photo</button>
 						<span class="photo-infos">jpg, png : 4mo max</span>
 					</div>
 					<form class="add-work-form">
-						<label for="title">Titre</label>
+						<label for="NewWorkTitle">Titre</label>
 						<input type="text" id="newWorkTitle" name="title" class="add-work-input" required/>
-						<label for="category">Catégorie</label>
-						<select name="category" id="newWorkCategory" class="add-work-input" required></select>
+						<label for="NewWorkCategory">Catégorie</label>
+						<select name="category" id="newWorkCategory" class="add-work-input"></select>
 					</form>
 				</div>
 				<div class="projects-container"></div>
 				<div class="line-separator"></div>
+				<span id="errorMessage"></span>
 				<button class="btn-modal" id="addWork">Ajouter une photo</button>
 				<button type="submit" class="btn-modal validation-btn modal-hidden" id="sendWorkBtn">Valider</button>
 			</div>
