@@ -324,6 +324,7 @@ const token = localStorage.getItem("token")
 
 if (token) {
     loginTxt.innerHTML = "logout"
+    editBtn.classList.remove("modal-hidden")
 
     // Deconnexion
     loginTxt.addEventListener("click", () => {
