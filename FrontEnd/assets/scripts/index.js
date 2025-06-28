@@ -103,9 +103,16 @@ const errorMessage = document.getElementById("errorMessage")
 
 // Ouvrir
 editBtn.addEventListener("click", () => {
-	editWindow.classList.remove("modal-hidden");
+    editWindow.classList.remove("modal-hidden");
     overlay.classList.remove("modal-hidden")
 	displayWorksModal(allWorks);
+    
+    document.body.style.overflow = "hidden"
+
+    const articles = document.querySelectorAll(".gallery img")
+    articles.forEach((img) => {
+        img.classList.add("articles-behind")
+    })
 });
 
 // Fermer
@@ -118,6 +125,14 @@ function closeModal() {
     addBtn.classList.remove("modal-hidden")
     addWorkModal.classList.remove("add-work-container")
     errorMessage.innerHTML = ""
+
+    document.body.style.overflow = ""
+
+    const articles = document.querySelectorAll(".gallery img")
+    articles.forEach((img) => {
+        img.classList.remove("articles-behind")
+    })
+
     resetAddForm()
 }
 overlay.addEventListener("click", closeModal);
