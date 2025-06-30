@@ -32,7 +32,7 @@ async function sendUserId () {
             localStorage.setItem("userId", response.userId)
             
             loginTxt.innerHTML = "logout"
-            window.location.href = "index.html"
+            window.location.href = "../index.html"
         } catch (error) {
             console.error("Erreur lors de la requête :", error)
         }

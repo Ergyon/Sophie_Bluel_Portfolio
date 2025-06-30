@@ -77,7 +77,7 @@ function displayWorksModal(works) {
         cardImg.src = work.imageUrl
 
         const delBtn = document.createElement("img")
-        delBtn.src = "./assets/icons/trash.png"
+        delBtn.src = "Frontend/assets/icons/trash.png"
         delBtn.alt = "Supprimer"
         delBtn.classList.add("delBtn")
 
@@ -107,7 +107,7 @@ editBtn.addEventListener("click", () => {
     overlay.classList.remove("modal-hidden")
 	displayWorksModal(allWorks);
     
-    document.body.style.overflow = "hidden"
+    // document.body.style.overflow = "hidden"
 
     const articles = document.querySelectorAll(".gallery img")
     articles.forEach((img) => {
@@ -299,6 +299,7 @@ async function submitNewWork() {
 
         if(response.ok) {
             const newWork = await response.json()
+            newWork.categoryId = parseInt(category)
             
             allWorks.push(newWork)
             displayWorksModal(allWorks)
