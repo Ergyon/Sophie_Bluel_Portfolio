@@ -3,10 +3,10 @@ let allWorks = []
 
 async function getWorks() {
     try {
-        const reponse = await fetch("http://localhost:5678/api/works")
+        const reponse = await fetch("http://localhost:5678/api-docs/works")
         allWorks = await reponse.json()
 
-        const getCategories = await fetch("http://localhost:5678/api/categories")
+        const getCategories = await fetch("http://localhost:5678/api-docs/categories")
         const categories = await getCategories.json()
 
         getFilters(categories, allWorks)
